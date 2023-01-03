@@ -1,0 +1,80 @@
+.header {
+  background-color: $color-grey-dark-1;
+  grid-column: full-start / col-end 6; // end after the 6 column
+  background-image: linear-gradient(
+      rgba($color-secondary, 0.93),
+      rgba($color-secondary, 0.93)
+    ),
+    url(../img/hero.jpeg);
+  background-size: cover;
+  background-position: center; // linear gradient from one color to thesame color - best choice for overlay for an image
+  padding: 8rem;
+  padding-top: 4rem; //for moving icon logo
+
+  display: grid; //this container has a define height which is 80% of the view port height
+  grid-template-rows: 1fr min-content minmax(6rem, min-content) 1fr; //all he other rows to be sized automatically. "min-content 6rem - for increase the row size"
+
+  grid-template-columns: minmax(
+    min-content,
+    max-content
+  ); //largest width possible
+  //we could have specified like a width here as well, but instead we say here that the column should never be more narrow that the content.
+
+  //function minmax have two parametres: min and max. In our case we set MIN - min-content, MAX - max-content.
+
+  grid-row-gap: 1.5rem; // create gap between first row which occupies all available space (80vw) besides the rest area which occupies other elements
+  justify-content: center;
+
+  // we need to change grid from ".header" grid
+  //move down realtors section
+  @media only screen and (max-width: $bp-medium) {
+    grid-column: 1 / -1;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    padding: 5rem;
+  }
+
+  &__logo {
+    height: 3rem;
+    justify-self: center; //centered icon logo
+  }
+
+  &__btn {
+    align-self: start;
+    justify-self: start;
+  }
+
+  &__seenon-text {
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    grid-column-gap: 1.5rem;
+    align-items: center; // centered "Seen on" between two lines
+
+    font-size: 1.6rem;
+    color: $color-grey-light-2;
+
+    //draw two lines: one before TEXT, other after TEXT. Using befor and after pseudo elements
+
+    &::before,
+    &::after {
+      content: ""; // without this lines this is not going to work
+      height: 1px;
+      display: block;
+      background-color: currentColor; //$color-grey-light-2
+    }
+  }
+  &__seenon-logos {
+    display: grid; //grid for logos at the bottom of header
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 3rem;
+    justify-items: center; //centered items in the grid cell
+    align-items: center;
+
+    img {
+      max-height: 2.5rem; //Height can be 2.5rem, but it can also be less tha that (it can be less). For scale properly we use max-width 100%
+      max-width: 100%;
+      filter: brightness(70%); //transparency of logos
+    }
+  }
+}

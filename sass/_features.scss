@@ -1,0 +1,57 @@
+.features {
+  grid-column: center-start / center-end;
+
+  margin: 15rem 0; //expand
+
+  @supports (display: grid) {
+    display: grid;
+    // grid-template-columns: repeat(3, 1fr); FIRST version not responsive
+    // not necessary define rows, all items basically be placed in a implicit grid, and not in an explicit grid, because we don't define rows
+
+    //SECOND version - responsive
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(25rem, 1fr)
+    ); //width of the tracks should always stay between 250px and 1 fractional unit. Base on "auto-fill", CSS will add as many tracks as fit in a container
+
+    grid-gap: 6rem; //gutter
+
+    // move text to the top in all cells, because stretch - default.
+    align-items: start;
+  }
+}
+
+.feature {
+  //its for all browser without grid support
+  float: left;
+  width: 33.333%;
+  margin-bottom: 6rem;
+
+  @supports (display: grid) {
+    width: auto;
+    margin-bottom: 0;
+  }
+
+  display: grid;
+  // grid inside the grid inside the grid
+  grid-template-columns: min-content 1fr; // "min-content" for automatically change the width of this column; and second will occupy all available space
+
+  //make space between icons and text
+  grid-row-gap: 1.5rem;
+  grid-column-gap: 2.5rem;
+
+  &__icon {
+    fill: $color-primary; //change color for svg icons (fill)
+    //sized
+    width: 4.5rem;
+    height: 4.5rem;
+    grid-row: 1 / span 2; // -1 means not the end of the grid, but end of the explicit grid -> change to "span 2"
+
+    //move icon to the top
+    transform: translateY(-1rem);
+  }
+
+  &__text {
+    font-size: 1.7rem;
+  }
+}

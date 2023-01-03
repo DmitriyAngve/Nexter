@@ -1,0 +1,89 @@
+// COLOR VARIABLES
+$color-primary: #c69963;
+$color-primary-dark: #b28451;
+
+$color-secondary: #101d2c;
+
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #aaa;
+
+$color-grey-dark-1: #54483a;
+$color-grey-dark-2: #6d5d4b;
+
+// FONT VARIABLES
+$font-primary: "Nunito", sans-serif;
+$font-display: "Josefin Sans", sans-serif;
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75rem; //1200px
+$bp-large: 62.5rem; //1000px
+$bp-medium: 50rem; //800px
+$bp-small: 37.5rem; //600px
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+
+  @media only screen and (max-width: $bp-largest) {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: $font-primary;
+  color: $color-grey-dark-2;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+// it's a grid container
+.container {
+  display: grid;
+  grid-template-rows: 80vh min-content 40vw repeat(3, min-content); //second row "Features" need to be sized
+  //"min-content 40vw" - the solution (auto (after min-content) - default, if you do not specify anything)
+  //"repeat (3, min-content)" second min-content - rest (остальные) rows
+  //don't need to do reponsive for mobile
+  grid-template-columns:
+    [sidebar-start] 8rem [sidebar-end full-start] minmax(6rem, 1fr)
+    [center-start]
+    repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    [center-end] minmax(6rem, 1fr)
+    [full-end];
+  //default desktop width 1140px (1140/8 = 142,5 ~ 14rem)
+  // (min-content, 14rem) - never be lower the min content
+  // all this code: 8 columns, of each of these columns to be between their minimum content and 140px
+  // 8rem - 8rem for sidebar (fixed width)
+  //  8rem !!minmax(6rem, 1fr)!! repeat(8, minmax(min-content, 14rem)) !!minmax(6rem, 1fr)!! - after sidebar and end ofthe page wrap all 8 columns for shrink first ===> 8 basic columns centered. No matter what we do - 60px
+
+  //in this mmedia queries we move sidebar to the top
+  @media only screen and (max-width: $bp-large) {
+    grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content);
+    grid-template-columns:
+      [full-start] minmax(6rem, 1fr)
+      [center-start]
+      repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+      [center-end] minmax(6rem, 1fr)
+      [full-end];
+  }
+
+  //change grid definition
+  @media only screen and (max-width: $bp-medium) {
+    //we are going to have a new row. Column here we actually don't need
+    grid-template-rows: 6rem calc(100vh - 6rem);
+    //first row 6rem - (sidebar)
+    //second row 100vh - (header) we change from 80 to 100 for fill up the entire viewport. We use calc function for calculation - because we need to start from new section (100vh - 6rem) 6rem - sidebar moved on top
+    //thrid row (ADDITIONAL) min-content - (realtors)
+    //fourth min-content
+    //fifth 40vw - in this case content dictate the size of the row. We change it to min-content
+
+    //finally we delete all after second row - implicit grid
+  }
+}

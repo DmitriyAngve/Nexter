@@ -1,0 +1,51 @@
+.realtors {
+  background-color: $color-secondary;
+  grid-column: col-start 7 / full-end; // starts after 7 column
+  padding: 3rem; //move the whole element
+
+  display: grid; //both gorizontally and vertically
+  align-content: center; //both gorizontally and vertically
+  justify-content: center; //both gorizontally and vertically
+  grid-row-gap: 2rem; //add distance between "Top 3 realtors" and "Images"
+  justify-items: center; // center "Top 3 realtors"
+
+  //move down realtors section
+  @media only screen and (max-width: $bp-medium) {
+    grid-column: 1 / -1;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: min-content max-content;
+    //min-content fit image nicelly
+    //max-content for text
+    grid-column-gap: 2rem;
+    grid-row-gap: 5vh; //VH - becuase I wanted this margin, this spacing to change whenever we change the height of the viewport (For very large screen)
+    align-items: center;
+
+    //realtors side-by-side
+    @media only screen and (max-width: $bp-medium) {
+      grid-template-columns: repeat(
+        3,
+        min-content max-content
+      ); // 3 times image/text
+    }
+
+    //put realtors one after the other
+    @media only screen and (max-width: $bp-small) {
+      grid-template-columns: min-content max-content;
+    }
+  }
+
+  &__img {
+    width: 7rem;
+    border-radius: 50%; //round
+    display: block;
+  }
+
+  &__sold {
+    text-transform: uppercase;
+    color: $color-grey-light-2;
+    margin-top: -3px;
+  }
+}

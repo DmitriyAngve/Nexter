@@ -1,0 +1,46 @@
+.footer {
+  background-color: $color-secondary;
+  grid-column: full-start / full-end;
+  padding: 8rem; //that we see what's going on
+}
+
+.nav {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(15rem, 1fr)
+  ); // auto-fit - automatically figure out how mane tracks there should be and the size always stay behind. minmax(15rem, 1fr) - if one of this tracks narrowed the 20rem, one of the column tracks will disappear
+  grid-gap: 2rem; //space between all elements
+  align-items: center; //aligning items inside grid cell allong the columns axis
+
+  &__link:link,
+  &__link:visited {
+    font-size: 1.4rem;
+    color: #fff;
+    text-decoration: none;
+    font-family: $font-display;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1.5rem;
+    display: block; // in order for this to be applied, lets set this to a block
+    transition: all 0.2s;
+  }
+
+  &__link:hover,
+  &__link:active {
+    background-color: rgba(#fff, 0.05);
+    transform: translateY(
+      -3px
+    ); //some animation on hover and active (displacement and recolor
+  }
+}
+.copyright {
+  font-size: 1.4rem;
+  color: $color-grey-light-2;
+  margin-top: 6rem;
+  margin-right: auto; //trick for centering
+  margin-left: auto; //trick for centering
+  text-align: center;
+  width: 75%;
+}

@@ -1,0 +1,91 @@
+.story {
+  &__pictures {
+    background-color: $color-primary;
+    grid-column: full-start / col-end 4;
+    //image background
+    background-image: linear-gradient(
+        rgba($color-primary, 0.1),
+        rgba($color-primary, 0.1)
+      ),
+      url(../img/back.jpg);
+    background-size: cover;
+
+    display: grid;
+    //do 6 by 6 container 4/6 of the container as image and 1/6 for remaining space
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    //this need for center images (intrinsic aspect ratio)
+    align-items: center;
+
+    @media only screen and (max-width: $bp-medium) {
+      grid-column: 1 / -1;
+      padding: 6rem;
+    }
+  }
+
+  &__img--1 {
+    width: 100%; // always use % for images so that they save flexible
+    //place first image
+    grid-row: 2 / 6;
+    grid-column: 2 / 6; // but image does not occupy all space. Image have intrinsic aspect ratio
+    box-shadow: 0 2rem 5rem rgba(#000, 0.1);
+
+    //move first image
+    @media only screen and (max-width: $bp-medium) {
+      grid-column: 1 / 5;
+      grid-row: 1 / -1; //start from the start end end to the end
+
+      //let's do this so image ocuppy all area grid
+    }
+  }
+
+  &__img--2 {
+    width: 115%; // additional 15% over 100% - to crawl out of the grid
+    //place second image
+    grid-row: 4 / 6;
+    grid-column: 4 / 7;
+    // without z-index we cant se image on "story__content"
+    z-index: 20;
+    box-shadow: 0 2rem 5rem rgba(#000, 0.2); // 0.2 - because overlapping on lighter area
+
+    //move second image
+    @media only screen and (max-width: $bp-medium) {
+      grid-row: 1 / -1; //start from the start end end to the end
+      width: 100%;
+    }
+  }
+
+  &__content {
+    background-color: $color-grey-light-1;
+    grid-column: col-start 5 / full-end;
+
+    padding: 6rem 8vw; // use "vw" units for responsive
+
+    // //combine flex with grid
+    // display: flex;
+    // //change the axis
+    // flex-direction: column;
+    // // center on the axis Y
+    // justify-content: center;
+    // // place in the start of flex cell
+    // align-items: flex-start;
+
+    // the same as with Flexbox solution
+    display: grid;
+    align-content: center;
+    justify-items: start;
+
+    //in the content section, put the text in the first place before the picture
+    @media only screen and (max-width: $bp-medium) {
+      grid-column: 1 / -1;
+      grid-row: 5 / 6;
+    }
+  }
+
+  //style the text of this section
+  &__text {
+    font-size: 1.5rem;
+    font-style: italic;
+    margin-bottom: 4rem; // this mb is it not reuseable
+  }
+}
